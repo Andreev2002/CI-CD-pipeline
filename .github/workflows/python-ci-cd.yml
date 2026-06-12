@@ -1,0 +1,45 @@
+name: Python CI/CD Demo
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check Python version
+        run: python --version
+
+      - name: Simulate install
+        run: echo "Installing dependencies..."
+
+      - name: Simulate tests
+        run: |
+          echo "Running tests..."
+          python -c "assert 1 + 1 == 2"
+          echo "Tests passed"
+
+      - name: Simulate build
+        run: echo "Build completed"
+
+  cd:
+    needs: ci
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Simulate deploy
+        run: |
+          echo "Deploying Python app..."
+          echo "Deploy successful"
